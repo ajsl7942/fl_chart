@@ -83,6 +83,7 @@ class LineChartSample5 extends StatelessWidget {
             Color(0xffc471ed),
             Color(0xfff64f59),
           ],
+
           stops: [0.1, 0.4, 0.9],
         ),
       ),
@@ -172,7 +173,7 @@ class LineChartSample5 extends StatelessWidget {
             ),
             topTitles: AxisTitles(
               axisNameWidget: const Text(
-                'Wall clock',
+                '상시 indicator',
                 textAlign: TextAlign.left,
               ),
               sideTitles: SideTitles(

@@ -9,12 +9,12 @@ class BarChartSample1 extends StatefulWidget {
   const BarChartSample1({super.key});
 
   List<Color> get availableColors => const <Color>[
-        Colors.purpleAccent,
-        Colors.yellow,
-        Colors.lightBlue,
-        Colors.orange,
-        Colors.pink,
-        Colors.redAccent,
+        Color(0xffA0E886),
+        Color(0xffA0E886),
+        Color(0xffA0E886),
+        Color(0xffA0E886),
+        Color(0xffA0E886),
+        Color(0xffA0E886),
       ];
 
   @override
@@ -22,8 +22,8 @@ class BarChartSample1 extends StatefulWidget {
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
-  final Color barBackgroundColor = const Color(0xff72d8bf);
-  final Duration animDuration = const Duration(milliseconds: 250);
+  final Color barBackgroundColor = const Color(0xffE1E2E5); // 그래프 바의 배경색
+  final Duration animDuration = const Duration(milliseconds: 350);
 
   int touchedIndex = -1;
 
@@ -35,7 +35,7 @@ class BarChartSample1State extends State<BarChartSample1> {
       aspectRatio: 1,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: const Color(0xff81e5cd),
+        color: const Color(0xffFFFFFF),
         child: Stack(
           children: <Widget>[
             Padding(
@@ -44,7 +44,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   const Text(
-                    'Mingguan',
+                    '목적은',
                     style: TextStyle(
                       color: Color(0xff0f4a3c),
                       fontSize: 24,
@@ -55,7 +55,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                     height: 4,
                   ),
                   const Text(
-                    'Grafik konsumsi kalori',
+                    '그래프 애니메이션',
                     style: TextStyle(
                       color: Color(0xff379982),
                       fontSize: 18,
@@ -110,7 +110,7 @@ class BarChartSample1State extends State<BarChartSample1> {
     int x,
     double y, {
     bool isTouched = false,
-    Color barColor = Colors.white,
+    Color barColor = Colors.blue,
     double width = 22,
     List<int> showTooltips = const [],
   }) {
@@ -126,7 +126,7 @@ class BarChartSample1State extends State<BarChartSample1> {
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 20,
+            toY: 40,
             color: barBackgroundColor,
           ),
         ),
@@ -191,7 +191,7 @@ class BarChartSample1State extends State<BarChartSample1> {
             return BarTooltipItem(
               '$weekDay\n',
               const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -237,7 +237,9 @@ class BarChartSample1State extends State<BarChartSample1> {
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: false,
+            getTitlesWidget: leftTitles,
+            reservedSize: 60,
+            showTitles: true,
           ),
         ),
       ),
@@ -245,38 +247,45 @@ class BarChartSample1State extends State<BarChartSample1> {
         show: false,
       ),
       barGroups: showingGroups(),
-      gridData: FlGridData(show: false),
+      gridData: FlGridData(
+          show: true,
+          drawVerticalLine: false,
+          horizontalInterval: 5,
+          checkToShowHorizontalLine: (double value) {
+            //특정 라인만 출력
+            return value == 20 || value == 30;
+          }),
     );
   }
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Colors.white,
+      color: Colors.black,
       fontWeight: FontWeight.bold,
-      fontSize: 14,
+      fontSize: 9,
     );
     Widget text;
     switch (value.toInt()) {
       case 0:
-        text = const Text('M', style: style);
+        text = const Text('11/28', style: style);
         break;
       case 1:
-        text = const Text('T', style: style);
+        text = const Text('11/29', style: style);
         break;
       case 2:
-        text = const Text('W', style: style);
+        text = const Text('11/30', style: style);
         break;
       case 3:
-        text = const Text('T', style: style);
+        text = const Text('11/31', style: style);
         break;
       case 4:
-        text = const Text('F', style: style);
+        text = const Text('12/1', style: style);
         break;
       case 5:
-        text = const Text('S', style: style);
+        text = const Text('12/2', style: style);
         break;
       case 6:
-        text = const Text('S', style: style);
+        text = const Text('12/3', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -305,7 +314,9 @@ class BarChartSample1State extends State<BarChartSample1> {
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: false,
+            showTitles: true,
+            reservedSize: 60,
+            getTitlesWidget: leftTitles,
           ),
         ),
         topTitles: AxisTitles(
@@ -377,7 +388,14 @@ class BarChartSample1State extends State<BarChartSample1> {
             return throw Error();
         }
       }),
-      gridData: FlGridData(show: false),
+      gridData: FlGridData(
+          show: true,
+          drawVerticalLine: false,
+          horizontalInterval: 5,
+          checkToShowHorizontalLine: (double value) {
+            //특정 라인만 출력
+            return value == 20 || value == 30;
+          }),
     );
   }
 
@@ -389,5 +407,30 @@ class BarChartSample1State extends State<BarChartSample1> {
     if (isPlaying) {
       await refreshState();
     }
+  }
+
+  Widget leftTitles(double value, TitleMeta meta) {
+    const style = TextStyle(
+      color: Color(0xff7589a2),
+      fontWeight: FontWeight.bold,
+      fontSize: 10,
+    );
+    String text;
+    //특정 값에만 텍스트 출력
+
+    if (value == 20) {
+      text = '건계부 받기';
+    } else if (value == 30) {
+      text = '목표달성';
+    } else {
+      return Container();
+    }
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 5,
+
+      ///그래프와 텍스트 사이 간격
+      child: Text(text, style: style),
+    );
   }
 }

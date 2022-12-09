@@ -90,6 +90,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                         getTooltipItem: (a, b, c, d) => null,
                       ),
                       touchCallback: (FlTouchEvent event, response) {
+
                         if (response == null || response.spot == null) {
                           setState(() {
                             touchedGroupIndex = -1;
@@ -98,7 +99,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                           return;
                         }
 
-                        touchedGroupIndex = response.spot!.touchedBarGroupIndex;
+                        touchedGroupIndex = response.spot!.touchedBarGroupIndex;//클릭 인덱스
 
                         setState(() {
                           if (!event.isInterestedForInteractions) {
@@ -217,7 +218,7 @@ class BarChartSample2State extends State<BarChartSample2> {
 
   BarChartGroupData makeGroupData(int x, double y1, double y2) {
     return BarChartGroupData(
-      barsSpace: 4,
+      barsSpace: -7,
       x: x,
       barRods: [
         BarChartRodData(
@@ -237,6 +238,7 @@ class BarChartSample2State extends State<BarChartSample2> {
   Widget makeTransactionsIcon() {
     const width = 4.5;
     const space = 3.5;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

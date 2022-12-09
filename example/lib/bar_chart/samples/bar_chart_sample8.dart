@@ -3,30 +3,35 @@ import 'dart:math' as math;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class BarChartSample7 extends StatefulWidget {
-  const BarChartSample7({super.key});
+class BarChartSample8 extends StatefulWidget {
+
+  const BarChartSample8({super.key});
 
   static const shadowColor = Color(0xFFCCCCCC);
-  static const dataList = [
-    _BarData(Color(0xFFecb206), 27000, 1008),
-    _BarData(Color(0xFFa8bd1a), 13000, 8),
-    _BarData(Color(0xFF17987b), 1330, 15),
-    _BarData(Color(0xFFb87d46), 2000.5, 5),
-    _BarData(Color(0xFF295ab5), 20000, 2.5),
-    _BarData(Color(0xFFea0107), 21111, 2),
+
+
+  static const dataList  = [_BarData(Color(0xFF29CC6A), 20000 , 1008),
+  _BarData(Color(0xFF29CC6A), 1000, 8),
+  _BarData(Color(0xFF29CC6A), 15000, 15),
+  _BarData(Color(0xFF29CC6A), 14000, 5),
+  _BarData(Color(0xFF29CC6A), 5000, 2.5),
+  _BarData(Color(0xFF29CC6A), 2000, 2),
   ];
 
   @override
-  State<BarChartSample7> createState() => _BarChartSample7State();
+  State<BarChartSample8> createState() => _BarChartSample8State();
 }
 
-class _BarChartSample7State extends State<BarChartSample7> {
+class _BarChartSample8State extends State<BarChartSample8> {
+  @override
+
+
   BarChartGroupData generateBarGroup(
-    int x,
-    Color color,
-    double value,
-    double shadowValue,
-  ) {
+      int x,
+      Color color,
+      double value,
+      double shadowValue,
+      ) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -35,11 +40,7 @@ class _BarChartSample7State extends State<BarChartSample7> {
           color: color,
           width: 10,//차트 width
         ),
-        // BarChartRodData(
-        //   toY: shadowValue,
-        //   color: BarChartSample7.shadowColor,
-        //   width: 6,
-        // ),
+
       ],
       showingTooltipIndicators: [0] ,// touchedGroupIndex == x ? [0] : [],
     );
@@ -69,7 +70,7 @@ class _BarChartSample7State extends State<BarChartSample7> {
                     border: const Border.symmetric(
                       horizontal: BorderSide(
                         //color: Color(0xFFececec),
-                        color: Colors.green
+                          color: Colors.green
                       ),
                     ),
                   ),
@@ -100,10 +101,11 @@ class _BarChartSample7State extends State<BarChartSample7> {
                           final index = value.toInt();
                           return SideTitleWidget(
                             axisSide: meta.axisSide,
-                            child: _IconWidget(
-                              color: BarChartSample7.dataList[index].color,
-                              isSelected: touchedGroupIndex == index,// 클릭시 icon 변경
-                            ),
+                            child: Text("11/28",style: TextStyle(color: Colors.black),)
+                            // _IconWidget(
+                            //   color: BarChartSample8.dataList[index].color,
+                            //   isSelected: touchedGroupIndex == index,// 클릭시 icon 변경
+                            // ),
                           );
                         },
                       ),
@@ -115,13 +117,8 @@ class _BarChartSample7State extends State<BarChartSample7> {
                     show: true,
                     drawVerticalLine: true,
                     drawHorizontalLine: true,
-
-                    // getDrawingHorizontalLine: (value) => FlLine(
-                    //   color: const Color(0xFFececec),
-                    //   strokeWidth: 1,
-                    // ),
                   ),
-                  barGroups: BarChartSample7.dataList.asMap().entries.map((e) {
+                  barGroups: BarChartSample8.dataList.asMap().entries.map((e) {
                     final index = e.key;
                     final data = e.value;
                     return generateBarGroup(
@@ -139,11 +136,11 @@ class _BarChartSample7State extends State<BarChartSample7> {
                       tooltipBgColor: Colors.transparent,
                       tooltipMargin: 0,
                       getTooltipItem: (
-                        BarChartGroupData group,
-                        int groupIndex,
-                        BarChartRodData rod,
-                        int rodIndex,
-                      ) {
+                          BarChartGroupData group,
+                          int groupIndex,
+                          BarChartRodData rod,
+                          int rodIndex,
+                          ) {
                         return BarTooltipItem(
                           rod.toY.toString(),
                           TextStyle(
@@ -153,7 +150,7 @@ class _BarChartSample7State extends State<BarChartSample7> {
                             shadows: const [
                               Shadow(
                                 color: Colors.black26,
-                                blurRadius: 12,
+                                blurRadius: 10,
                               )
                             ],
                           ),
@@ -228,7 +225,7 @@ class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
     _rotationTween = visitor(
       _rotationTween,
       widget.isSelected ? 1.0 : 0.0,
-      (dynamic value) => Tween<double>(
+          (dynamic value) => Tween<double>(
         begin: value as double,
         end: widget.isSelected ? 1.0 : 0.0,
       ),

@@ -137,13 +137,13 @@ class _LineChart extends StatelessWidget {
     Widget text;
     switch (value.toInt()) {
       case 2:
-        text = const Text('SEPT', style: style);
+        text = const Text('1', style: style);
         break;
       case 7:
-        text = const Text('OCT', style: style);
+        text = const Text('2', style: style);
         break;
       case 12:
-        text = const Text('DEC', style: style);
+        text = const Text('3', style: style);
         break;
       default:
         text = const Text('');
